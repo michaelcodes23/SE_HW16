@@ -20,12 +20,27 @@ function App() {
     const data = await response.json();
     //set the Movie state to the movie
     console.log(data)
+    console.log(searchTerm);
     setMovie(data);
   }
+
+  
+  const dataArray = async () =>{
+    let random = Math.round(Math.random()*50)
+
+    const response = await fetch(
+      `http://www.omdbapi.com/?apikey=${apiKey}&t=${random}`
+    )
+    const data = await response.json();
+    setMovie(data)
+  }
   //This will run on the first render but no on subsequent renders
-  React.useEffect(()=> {
-    getMovie("Clueless");
-  }, []);
+
+    React.useEffect(()=>{
+      dataArray()
+      console.log('running use effect')
+    },[])
+
 
   
   return (
